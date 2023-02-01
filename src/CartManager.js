@@ -31,10 +31,13 @@ const CartManager = class {
             products
         }
 
+        carts.push(cart)
         fs.writeFileSync(this.path, JSON.stringify(carts, null, "\t"))
 
         return `el nuevo carrito con id: ${cart.id} se creo exitosamente`
     }
+
+
 
     addProductToCard(cid, pid) {
 
@@ -56,7 +59,7 @@ const CartManager = class {
         } else {
             productList.push(product)
         }
-        
+
         cartId.products = productList
 
         for (let i = 0; i < carts.length; i++) {

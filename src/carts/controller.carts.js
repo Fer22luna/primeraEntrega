@@ -23,7 +23,7 @@ router.post("/:cid/products/:pid",  (req, res) => {
 router.post("/",  (req, res) => {
 
     const products = req.body
-    const newCart =manager.createNewCart(products)
+    const newCart = manager.createNewCart(products)
     res.json({message: newCart})
 })
 

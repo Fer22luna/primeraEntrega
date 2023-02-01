@@ -16,7 +16,7 @@ router.get("/productos", async (req, res) => {
 */
 router.get("/", async (req, res) => {
 
-    const { limit = 10 } = req.query
+    const { limit = 15 } = req.query
     const allProducts = manager.getProducts()
     const newProductsArray = allProducts.slice(0, limit)
     res.json({ message: newProductsArray })

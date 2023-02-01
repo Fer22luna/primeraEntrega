@@ -78,8 +78,6 @@ const ProductManager = class {
         }
     }
 
-    //////// En este metodo, le pido el id del producto a actualizar, seleccionar el key del cual voy a cambiar su value,
-    /////// y el value que va a ser modificado
 
     updateProduct(id, ...camposCambiar) {
 
@@ -101,7 +99,7 @@ const ProductManager = class {
             fs.writeFileSync(this.path, JSON.stringify(products, null, "\t"))
         }
 
-        return `Producto con id: ${id} actualizado correctamente`;
+        return `the product with id: ${id} has been successfully updated `;
     }
 
     deleteProducts(id) {
@@ -112,13 +110,10 @@ const ProductManager = class {
 
             fs.writeFileSync(this.path, JSON.stringify(users, null, "\t"))
 
-            return `Se borro el elemento de id : ${id}`
+            return `Delete the product with  id : ${id} `
         }
     }
 }
-
-
-
 
 
 module.exports = ProductManager

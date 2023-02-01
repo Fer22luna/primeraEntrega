@@ -45,7 +45,7 @@
 				"thumbnail": "a",
 				"code": "abc123",
 				"stock": 200,
-				"quantity": 4
+				"quantity": 5
 			},
 			{
 				"id": 22,
@@ -168,6 +168,29 @@
 	},
 	{
 		"id": "0.5707768656561851",
+		"products": [
+			{
+				"id": 1,
+				"title": "el extranjero",
+				"description": "libro",
+				"price": 30,
+				"thumbnail": "a",
+				"code": "abc123",
+				"stock": 200
+			},
+			{
+				"id": 2,
+				"title": "el extranjero",
+				"description": "libro",
+				"price": 30,
+				"thumbnail": "a",
+				"code": "abc124",
+				"stock": 200
+			}
+		]
+	},
+	{
+		"id": "0.06719492711131037",
 		"products": [
 			{
 				"id": 1,
