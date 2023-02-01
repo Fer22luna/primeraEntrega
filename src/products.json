@@ -10,9 +10,9 @@
 	},
 	{
 		"id": 2,
-		"title": "el extranjero",
+		"title": "harry",
 		"description": "libro",
-		"price": 30,
+		"price": 30000,
 		"thumbnail": "a",
 		"code": "abc124",
 		"stock": 200
@@ -82,11 +82,12 @@
 	},
 	{
 		"id": 10,
-		"title": "el extranjero",
+		"title": "The princess Bride",
 		"description": "libro",
-		"price": 30,
-		"thumbnail": "a",
-		"code": "abc1230",
-		"stock": 200
+		"price": 200,
+		"code": "abc123456",
+		"status": true,
+		"stock": 1000,
+		"quantity": 1
 	}
 ]

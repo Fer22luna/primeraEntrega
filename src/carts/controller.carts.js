@@ -1,76 +1,30 @@
 const { Router } = require("express")
 const fs = require("fs")
+const CartManager = require("../CartManager")
 
 const router = Router()
-
+const manager = new CartManager()
 
 router.get("/:cid", async (req, res) => {
 
-    const data = await fs.promises.readFile("./carts.json", "utf-8")
-    const carts = JSON.parse(data)
-
-    const { cid } = req.params
-
-    const cartId = carts.filter(cart => cart.id === Number(cid))
-
-    if (!cartId) {
-        res.json({ error: "Id no econtrado" })
-    } else {
-        res.json({ message: cartId })
-    }
-
+    const { cid } = req.params   
+    const productsOnCardId = manager.getCardbyId(Number(cid))
+    res.json({products: productsOnCardId})
 })
 
-
-router.post("/:cid/products/:pid", async (req, res) => {
-
-    // http://localhost:8080/api/carts/2/products/3
-
-    const data = await fs.promises.readFile("./carts.json", "utf-8")
-    const carts = JSON.parse(data)
+router.post("/:cid/products/:pid",  (req, res) => {
 
     const { cid, pid } = req.params
-    console.log(req.params)
-    const cart = carts.filter(cart => cart.id === Number(cid))
-
-    const productList = carts[1].products  // a este arreglo voy a  agregar el nuevo
-
-    const [productListId] = productList.filter(product => product.id === Number(pid))
-
-
-    const newProductAddById = {
-        product: pid,
-        quantity: 1
-    }
-
-    if(productListId){
-        
-        productListId.quantity++
-
-    }else{
-        productList.push(newProductAddById)
-    }
-    res.json({message: productList})
-
+    const productoAdd = manager.addProductToCard(Number(cid),Number(pid))
+    res.json({message: productoAdd})
+    
 })
 
+router.post("/",  (req, res) => {
 
-router.post("/", async (req, res) => {
-
-    const data = await fs.promises.readFile("./carts.json", "utf-8")
-    const carts = JSON.parse(data)
     const products = req.body
-
-    const cart = {
-
-        id: Math.random().toString(),
-        products
-    }
-
-    carts.push(cart)
-    res.json({ message: carts })
+    const newCart =manager.createNewCart(products)
+    res.json({message: newCart})
 })
-
-
 
 module.exports = router

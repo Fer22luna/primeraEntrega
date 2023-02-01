@@ -1,110 +1,58 @@
 const { Router } = require("express")
 const fs = require("fs")
+const ProductManager = require("../ProductManager")
+
 
 const router = Router()
+const manager = new ProductManager()
 
+/*
+router.get("/productos", async (req, res) => {
 
-
+    const data = await fs.promises.readFile("./products.json", "utf-8")
+    const products = JSON.parse(data)
+    res.render("home.handlebars", { productos: products })
+})
+*/
 router.get("/", async (req, res) => {
 
-    const data = await fs.promises.readFile("./products.json", "utf-8")
-    const products = JSON.parse(data)
-
     const { limit = 10 } = req.query
-
-    const newProductsArray = products.slice(0, limit)
-    res.json(newProductsArray)
-
-
+    const allProducts = manager.getProducts()
+    const newProductsArray = allProducts.slice(0, limit)
+    res.json({ message: newProductsArray })
 })
 
+router.get("/:pid", (req, res) => {
 
-router.get("/:pid", async (req, res) => {
-
-    const data = await fs.promises.readFile("./products.json", "utf-8")
-    const products = JSON.parse(data)
     const { pid } = req.params
-
-    const [product] = products.filter(product => product.id === Number(pid))
-
-
-    if (!product) {
-        res.json({ error: "No hay productos con ese id" })
-    } else {
-        res.json({ message: product })
-    }
+    res.json({ message: manager.getProductsById(Number(pid)) })
 })
-
 
 router.post("/", (req, res) => {
 
-    const { title, description, code, price, status = true, stock, category, thumbnails } = req.body
+    const { title, description, code, price, stock, thumbnail } = req.body
+    const productAdd = manager.addProducts(title, description, price, thumbnail, code, stock)
+    res.json({ message: productAdd })
 
-
-    const newProduct = {
-        id: Math.random().toString(),
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnails
-    }
-
-    if (!title || !description || !price || !category || !code || !stock) {
-        res.json({ message: " Todos los parametros son requeridos" })
-    } else {
-        console.log(newProduct)
-        res.json({ message: newProduct })
-    }
 })
 
 
-router.put("/:pid", async (req, res) => {
+router.put("/:pid",  (req, res) => {
 
-    const data = await fs.promises.readFile("./products.json", "utf-8")
-    const products = JSON.parse(data)
     const { pid } = req.params
-
-    const productId = products.find(product => product.id === Number(pid))
-
-
-    const { title, description, code, price, status = true, stock, category, thumbnails } = req.body
-
-    const changeProduct = {
-        id: Number(pid),
-        title,
-        description,
-        code,
-        price,
-        status,
-        stock,
-        category,
-        thumbnails
-    }
-
-    products[pid - 1] = changeProduct
-
-    res.json({ message: products })
+    const { ...variables } = req.body
+    const productChange = manager.updateProduct(Number(pid), { ...variables })
+    res.json({ message: productChange })
 })
 
 
-router.delete("/:pid", async (req, res) => {
 
-    const data = await fs.promises.readFile("./products.json", "utf-8")
-    const products = JSON.parse(data)
+router.delete("/:pid",  (req, res) => {
+
     const { pid } = req.params
-
-    products.splice(Number(pid) - 1, 1)
-    res.json({ message: products })
+    res.json({ message: manager.deleteProducts(Number(pid)) })
 
 })
-
-
-
-
 
 
 module.exports = router
