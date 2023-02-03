@@ -1,53 +1,43 @@
 const fs = require("fs")
+const { v4: uuidv4 } = require('uuid');
+
 
 const ProductManager = class {
 
-    constructor( products = [], path = "./products.json") {
+    constructor(path = "./products.json") {
 
-        this.products = products
-        this.id = 1
         this.path = path
+        if (fs.existsSync(this.path)) {
+            const data = fs.readFileSync(this.path, "utf-8");
+            this.products = JSON.parse(data);
+        }
 
     }
 
-    addProducts(title, description, price, thumbnail, code ,stock) {
+    addProducts(title, description, price, thumbnail, code, stock) {
+
+        if (!title || !description || !price || !code || !stock) {
+            return "all parameters are required"
+        }
 
         const product = {
-            id: this.id,
+            id: uuidv4(),
             title,
             description,
             price,
             thumbnail,
             code,
-            status:true,
+            status: true,
             stock,
             quantity: 1
         }
 
-        ////////////// Aca validamos que se ingresen todos los parametros lo cambie de la entrega anterior
-        if (!title || !description || !price || !thumbnail || !code || !stock) {
-            console.log('TODOS LOS PARAMETROS SON REQUERIDOS')
-            
-        }
-
-        const data =  fs.readFileSync(this.path, "utf-8")
-        const products = JSON.parse(data)
-
-        this.products = products
-
         const [producto] = this.products.filter(product => product.code === code)
-
         if (producto) {
-            console.log("ERROR : el codigo debe ser unico ")
+            return "Cannot add code that already exists, must be unique "
         }
 
-        if (this.products.length === 0) {
-            product.id = 1
-        } else {
-            product.id = this.products[this.products.length - 1].id + 1
-        }
-
-        this.products.push(product)  // pusheo los productos en el array de productos
+        this.products.push(product)  
 
         fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"))
 
@@ -57,19 +47,12 @@ const ProductManager = class {
 
     getProducts() {
 
-        const data =  fs.readFileSync(this.path, "utf-8")
-        const products = JSON.parse(data)
-
-        return products
+        return this.products
     }
 
     getProductsById(idProduct) {
 
-
-        const data =  fs.readFileSync(this.path, "utf-8")
-        const products = JSON.parse(data)
-
-        const productById = products.find(product => product.id === idProduct)
+        const productById = this.products.find(product => product.id === idProduct)
 
         if (!productById) {
             return `Not Found`
@@ -78,43 +61,40 @@ const ProductManager = class {
         }
     }
 
-
     updateProduct(id, ...camposCambiar) {
 
+        const cambios = { ...camposCambiar }
 
-        if (fs.existsSync(this.path)) {
-            const data = fs.readFileSync(this.path, "utf-8")
-            const products = JSON.parse(data)
-            const  cambios  = {...camposCambiar}
+        const [productId] = this.products.filter(product => product.id === id)
 
-            const [productId] = products.filter(product => product.id === id)
+        Object.keys(productId).forEach(key => {
+            if (cambios[0].hasOwnProperty(key)) {
 
-            Object.keys(productId).forEach(key =>{
-                if(cambios[0].hasOwnProperty(key)){
+                productId[key] = cambios[0][key]
+            }
+        })
 
-                    productId[key] = cambios[0][key]
-                }
-            }) 
+        fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"))
 
-            fs.writeFileSync(this.path, JSON.stringify(products, null, "\t"))
-        }
 
         return `the product with id: ${id} has been successfully updated `;
     }
 
     deleteProducts(id) {
-        if (fs.existsSync(this.path)) {
-            const data = fs.readFileSync(this.path, "utf-8")
-            const users = JSON.parse(data)
-            users.splice(id - 1, 1)   // Aca borro el elemento del numero id ubicado en el lugar id-1
 
-            fs.writeFileSync(this.path, JSON.stringify(users, null, "\t"))
+        const productIndex = this.products.findIndex(product => product.id === id);
 
-            return `Delete the product with  id : ${id} `
+        if (productIndex === -1) {
+            return "Product not found";
         }
+        this.products.splice(productIndex, 1);
+
+
+        fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"))
+
+        return `Delete the product with  id : ${id} `
     }
 }
-
 
 module.exports = ProductManager
 

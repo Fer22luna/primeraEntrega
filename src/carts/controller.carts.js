@@ -8,14 +8,14 @@ const manager = new CartManager()
 router.get("/:cid", async (req, res) => {
 
     const { cid } = req.params   
-    const productsOnCardId = manager.getCardbyId(Number(cid))
+    const productsOnCardId = manager.getCardbyId(cid)
     res.json({products: productsOnCardId})
 })
 
 router.post("/:cid/products/:pid",  (req, res) => {
 
     const { cid, pid } = req.params
-    const productoAdd = manager.addProductToCard(Number(cid),Number(pid))
+    const productoAdd = manager.addProductToCard(cid,pid)
     res.json({message: productoAdd})
     
 })

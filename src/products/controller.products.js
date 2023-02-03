@@ -1,20 +1,22 @@
 const { Router } = require("express")
 const fs = require("fs")
 const ProductManager = require("../ProductManager")
+const socket = require("../index")  // Importa la instancia de Server aquí
+ 
 
 
 const router = Router()
 const manager = new ProductManager()
 
-/*
-router.get("/productos", async (req, res) => {
+router.get("/productList",  (req, res) => {
 
-    const data = await fs.promises.readFile("./products.json", "utf-8")
+    const data = fs.readFileSync("./products.json", "utf-8")
     const products = JSON.parse(data)
     res.render("home.handlebars", { productos: products })
 })
-*/
-router.get("/", async (req, res) => {
+
+
+router.get("/",  (req, res) => {
 
     const { limit = 15 } = req.query
     const allProducts = manager.getProducts()
@@ -25,34 +27,29 @@ router.get("/", async (req, res) => {
 router.get("/:pid", (req, res) => {
 
     const { pid } = req.params
-    res.json({ message: manager.getProductsById(Number(pid)) })
+    res.json({ message: manager.getProductsById(pid) })
 })
 
 router.post("/", (req, res) => {
 
     const { title, description, code, price, stock, thumbnail } = req.body
-    const productAdd = manager.addProducts(title, description, price, thumbnail, code, stock)
+    const productAdd = manager.addProducts(title, description, price, thumbnail, code, stock)  
+    socket.emit("newProduct", req.body.title)
     res.json({ message: productAdd })
-
 })
-
 
 router.put("/:pid",  (req, res) => {
 
     const { pid } = req.params
     const { ...variables } = req.body
-    const productChange = manager.updateProduct(Number(pid), { ...variables })
+    const productChange = manager.updateProduct(pid, { ...variables })
     res.json({ message: productChange })
 })
-
-
 
 router.delete("/:pid",  (req, res) => {
 
     const { pid } = req.params
-    res.json({ message: manager.deleteProducts(Number(pid)) })
-
+    res.json({ message: manager.deleteProducts(pid) })
 })
-
 
 module.exports = router
