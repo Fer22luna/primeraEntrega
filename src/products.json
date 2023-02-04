@@ -129,5 +129,38 @@
 		"status": true,
 		"stock": 1000,
 		"quantity": 1
+	},
+	{
+		"id": "329e4e36-0a81-48fd-ba97-7d113cf35a2e",
+		"title": "perro",
+		"description": "juguete",
+		"price": 200,
+		"thumbnail": "kkkkk",
+		"code": "alololo",
+		"status": true,
+		"stock": 200,
+		"quantity": 1
+	},
+	{
+		"id": "b87ee50e-d255-4637-b6f6-3ee961a15a2f",
+		"title": "hola",
+		"description": "hola",
+		"price": 22,
+		"thumbnail": "RRR",
+		"code": "dsdsd",
+		"status": true,
+		"stock": 22,
+		"quantity": 1
+	},
+	{
+		"id": "23f3c90c-0b21-478f-a2da-f5dc235aadd9",
+		"title": "hola",
+		"description": "cola",
+		"price": 434,
+		"thumbnail": "llll",
+		"code": "ññññññ",
+		"status": true,
+		"stock": 22,
+		"quantity": 1
 	}
 ]

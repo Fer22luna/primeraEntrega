@@ -2,7 +2,7 @@ const { Router } = require("express")
 const fs = require("fs")
 const ProductManager = require("../ProductManager")
 const socket = require("../index")  // Importa la instancia de Server aquí
- 
+const eventEmitter = require("events")
 
 
 const router = Router()

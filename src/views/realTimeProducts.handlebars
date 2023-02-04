@@ -1,8 +1,29 @@
 <h1>Hola desde sockets</h1>
+<h2>{{message}}</h2>
 
-<div>
-    <p id="productsRender"></p>
-</div>
+<!--<form action="/api/realtimeproducts" method="POST">-->
+<form class="form">
+<label >title</label>
+<input type="text" name="title" id="input1">
+<label >description</label>
+<input type="text" name="description" id="input2">
+<label >price</label>
+<input type="text" name="price" id="input3">
+<label >thumbnail</label>
+<input type="text" name="thumbnail" id="input4">
+<label >Code</label>
+<input type="text" name="code" id="input5">
+<label >Stock</label>
+<input type="text" name="stock" id="input6">
+<br>
+<input type="submit" id="submitButton">
+</form>
+
+<h3> Lista de productos</h3>
+<p id="productos"></p>
+
+
+
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
