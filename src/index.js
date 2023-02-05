@@ -34,7 +34,9 @@ io.on('connection', socket => {
     socket.on("inputs", data => {
 
         const newProduct = manager.addProducts(data[0],data[1],Number(data[2]),data[3],data[4],Number(data[5]))
-        io.emit("inputValues", newProduct)
+        console.log(newProduct)
+        const allProducts = manager.getProducts()
+        io.emit("inputValues", allProducts )
 
     });
 

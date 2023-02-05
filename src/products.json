@@ -81,86 +81,25 @@
 		"stock": 200
 	},
 	{
-		"id": 11,
-		"title": "zoo de papel",
-		"description": "libro",
-		"price": 200,
-		"code": "abc123456",
+		"id": "e6d1f8ec-69c7-4e51-88db-b960673a19b0",
+		"title": "cc",
+		"description": "c",
+		"price": 4,
+		"thumbnail": "cc",
+		"code": "cm",
 		"status": true,
-		"stock": 1000,
+		"stock": 2,
 		"quantity": 1
 	},
 	{
-		"id": "4ef89201-07a6-48a6-acb0-8a0595701660",
-		"title": "hola1",
-		"description": "libro",
-		"price": 200,
-		"code": "abc1234567",
+		"id": "e15f564a-a91a-4cb1-9e11-a69ea720b8b7",
+		"title": "d",
+		"description": "dd",
+		"price": 1,
+		"thumbnail": "ddd",
+		"code": "´poo",
 		"status": true,
-		"stock": 1000,
-		"quantity": 1
-	},
-	{
-		"id": "c6ca776b-55af-4d68-a4f3-94ee6bc9bbfa",
-		"title": "holaaaaaaaaaaaaaa",
-		"description": "libro",
-		"price": 300000000,
-		"code": "abc12345678",
-		"status": true,
-		"stock": 1000,
-		"quantity": 1
-	},
-	{
-		"id": "c4de2696-5b5e-461f-b7dc-a2cde69bd8f3",
-		"title": "AgregoProducto",
-		"description": "libro",
-		"price": 200,
-		"code": "8",
-		"status": true,
-		"stock": 1000,
-		"quantity": 1
-	},
-	{
-		"id": "7f46f66c-a1c5-4c68-8825-1b72849aa82c",
-		"title": "AgregoProducto",
-		"description": "libro",
-		"price": 200,
-		"code": "88",
-		"status": true,
-		"stock": 1000,
-		"quantity": 1
-	},
-	{
-		"id": "329e4e36-0a81-48fd-ba97-7d113cf35a2e",
-		"title": "perro",
-		"description": "juguete",
-		"price": 200,
-		"thumbnail": "kkkkk",
-		"code": "alololo",
-		"status": true,
-		"stock": 200,
-		"quantity": 1
-	},
-	{
-		"id": "b87ee50e-d255-4637-b6f6-3ee961a15a2f",
-		"title": "hola",
-		"description": "hola",
-		"price": 22,
-		"thumbnail": "RRR",
-		"code": "dsdsd",
-		"status": true,
-		"stock": 22,
-		"quantity": 1
-	},
-	{
-		"id": "23f3c90c-0b21-478f-a2da-f5dc235aadd9",
-		"title": "hola",
-		"description": "cola",
-		"price": 434,
-		"thumbnail": "llll",
-		"code": "ññññññ",
-		"status": true,
-		"stock": 22,
+		"stock": 3,
 		"quantity": 1
 	}
 ]
